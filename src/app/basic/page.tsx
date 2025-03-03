@@ -1,25 +1,26 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Basic Frame',
-  description: 'A Farcaster Frame Demo',
+  title: 'Counter Game',
+  description: 'A simple counter game built with Farcaster Frames',
   openGraph: {
-    title: 'Basic Frame',
-    description: 'A Farcaster Frame Demo',
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/site-preview.jpg`],
+    title: 'Counter Game',
+    description: 'A simple counter game built with Farcaster Frames',
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Counter Game`],
   },
   other: {
     'fc:frame': 'vNext',
-    'fc:frame:image': `${process.env.NEXT_PUBLIC_SITE_URL}/site-preview.jpg`,
-    'fc:frame:post_url': `${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?id=1`,
-    'fc:frame:button:1': 'Start',
+    'fc:frame:image': `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Counter Game`,
+    'fc:frame:button:1': 'Start Game',
+    'fc:frame:post_url': `${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?count=0`,
   },
 }
 
 export default function Page() {
   return (
-    <div>
-      <h1>Basic Frame</h1>
+    <div className="flex min-h-screen flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-4">Counter Game</h1>
+      <p className="text-xl">A simple counter game built with Farcaster Frames</p>
     </div>
   )
 }

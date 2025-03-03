@@ -4,21 +4,16 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
+// ... existing code ...
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
 
-    // ?title=<title>
     const hasTitle = searchParams.has('title')
     const title = hasTitle
       ? searchParams.get('title')?.slice(0, 100)
-      : 'Default Title'
-
-    // ?description=
-    const hasDescription = searchParams.has('description')
-    const description = hasDescription
-      ? searchParams.get('description')?.slice(0, 100)
-      : ''
+      : 'Counter Game'
 
     return new ImageResponse(
       (
@@ -31,9 +26,10 @@ export async function GET(request: Request) {
             justifyContent: 'center',
             flexDirection: 'column',
             backgroundImage: 'linear-gradient(to bottom, #dbf4ff, #fff1f1)',
-            fontSize: 80,
+            fontSize: 60,
             fontWeight: 700,
             textAlign: 'center',
+            padding: '40px',
           }}
         >
           <p
@@ -49,22 +45,15 @@ export async function GET(request: Request) {
           >
             {title}
           </p>
-          {description && (
-            <p
-              style={{
-                backgroundImage:
-                  'linear-gradient(90deg, rgb(121, 40, 202), rgb(255, 0, 128))',
-                backgroundClip: 'text',
-                color: 'transparent',
-                fontSize: 80,
-                fontWeight: 700,
-                margin: 0,
-                marginTop: 20,
-              }}
-            >
-              {description}
-            </p>
-          )}
+          <p
+            style={{
+              fontSize: 40,
+              color: '#666',
+              marginTop: 20,
+            }}
+          >
+            Use the buttons below to play!
+          </p>
         </div>
       ),
       {
@@ -73,9 +62,6 @@ export async function GET(request: Request) {
       }
     )
   } catch (e: any) {
-    console.log(`${e.message}`)
-    return new Response(`Failed to generate the image`, {
-      status: 500,
-    })
+    // ... existing error handling ...
   }
 }
