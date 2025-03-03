@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Counter Game',
     description: 'A simple counter game built with Farcaster Frames',
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Counter Game`],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/site-preview.jpg`,],
   },
   other: {
     'fc:frame': 'vNext',
-    'fc:frame:image': `${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Counter Game`,
+    'fc:frame:image': `${process.env.NEXT_PUBLIC_SITE_URL}/site-preview.jpg`,
     'fc:frame:button:1': 'Start Game',
     'fc:frame:post_url': `${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?count=0`,
   },

@@ -13,7 +13,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       <meta property="fc:frame" content="vNext" />
       <meta property="fc:frame:image" content="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=" />
       <meta property="fc:frame:button:1" content="Next" />
-      <meta property="fc:frame:post_url" content="https://frames-gilt.vercel.app/api" />
+      <meta property="fc:frame:post_url" content="https://frames-dusky13.vercel.app/api" />
     </head></html>`)
   } catch (error) {
     console.error('Error in POST handler:', error)
