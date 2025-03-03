@@ -1,32 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-async function getResponse(req: NextRequest): Promise<NextResponse> {
-  const searchParams = req.nextUrl.searchParams
-  const count = searchParams.get('count')
-  
-  const currentCount = count ? parseInt(count) : 0
-  const increment = currentCount + 1
-  const decrement = currentCount - 1
-
-  return new NextResponse(`<!DOCTYPE html><html><head>
-    <title>Counter Game</title>
-    <meta property="og:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Current Count: ${currentCount}" />
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/og?title=Current Count: ${currentCount}" />
-    <meta property="fc:frame:button:1" content="➕ Increment" />
-    <meta property="fc:frame:button:1:action" content="post" />
-    <meta property="fc:frame:button:1:target" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?count=${increment}" />
-    <meta property="fc:frame:button:2" content="➖ Decrement" />
-    <meta property="fc:frame:button:2:action" content="post" />
-    <meta property="fc:frame:button:2:target" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?count=${decrement}" />
-    <meta property="fc:frame:button:3" content="🔄 Reset" />
-    <meta property="fc:frame:button:3:action" content="post" />
-    <meta property="fc:frame:button:3:target" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?count=0" />
-  </head></html>`)
-}
-
 export async function POST(req: NextRequest): Promise<Response> {
-  return getResponse(req)
+  try {
+    // You can access the button data from the request if needed
+    const data = await req.json()
+    const buttonIndex = data.untrustedData.buttonIndex
+
+    // Return a new frame response
+    return new NextResponse(`<!DOCTYPE html><html><head>
+      <title>Basic Frame</title>
+      <meta property="og:image" content="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=" />
+      <meta property="fc:frame" content="vNext" />
+      <meta property="fc:frame:image" content="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=" />
+      <meta property="fc:frame:button:1" content="Next" />
+      <meta property="fc:frame:post_url" content="https://frames-gilt.vercel.app/api" />
+    </head></html>`)
+  } catch (error) {
+    console.error('Error in POST handler:', error)
+    return new NextResponse('Error processing frame action', { status: 500 })
+  }
 }
 
 export const dynamic = 'force-dynamic'
