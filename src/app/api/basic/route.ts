@@ -23,14 +23,31 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     </head></html>`)
   }
 
-  return new NextResponse(`<!DOCTYPE html><html><head>
-    <title>This is frame ${id}</title>
-    <meta property="og:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
-    <meta property="fc:frame:button:1" content="Next Page" />
-    <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?id=${nextId}" />
-  </head></html>`)
+  if (idAsNumber === 1) {
+    // First frame - only Next button
+    return new NextResponse(`<!DOCTYPE html><html><head>
+      <title>This is frame ${id}</title>
+      <meta property="og:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
+      <meta property="fc:frame" content="vNext" />
+      <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
+      <meta property="fc:frame:button:1" content="Next Page" />
+      <meta property="fc:frame:post_url" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?id=${nextId}" />
+    </head></html>`)
+  } else {
+    // Frames 2 and 3 - Next and Home buttons
+    return new NextResponse(`<!DOCTYPE html><html><head>
+      <title>This is frame ${id}</title>
+      <meta property="og:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
+      <meta property="fc:frame" content="vNext" />
+      <meta property="fc:frame:image" content="${process.env.NEXT_PUBLIC_SITE_URL}/park-${id}.png" />
+      <meta property="fc:frame:button:1" content="Next Page" />
+      <meta property="fc:frame:button:1:action" content="post" />
+      <meta property="fc:frame:button:1:target" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?id=${nextId}" />
+      <meta property="fc:frame:button:2" content="Home" />
+      <meta property="fc:frame:button:2:action" content="post" />
+      <meta property="fc:frame:button:2:target" content="${process.env.NEXT_PUBLIC_SITE_URL}/api/basic?id=1" />
+    </head></html>`)
+  }
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
